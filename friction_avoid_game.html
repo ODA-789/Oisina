@@ -4,8 +4,40 @@
       <title>Avoid enemies game with friction</title>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.2/p5.js"></script>
       <h1>Avoid enemies game with friction</h1>
+          <style>
+      body {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding: 20px;
+      }
+      #gameCanvas {
+        flex: 1;
+      }
+      #instructions {
+        width: 300px;
+        padding: 20px;
+        background-color: #f4f4f4;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+    </style>
     </head>
     <body>
+       <div id="gameCanvas">
+      <!-- Your p5.js game will render here -->
+      <a href="projects.html" style="padding:10px 20px; background:#007BFF; color:#fff; text-decoration:none; border-radius:5px;display:block;margin-bottom: 20px; width:200px;text-align:center;">Go back</a>
+    </div>
+
+    <div id="instructions">
+      <h2>How to Play</h2>
+      <p>Use the arrow keys to move the ball</p>
+      <p>Avoid the enemies</p>
+      <p>The enemies get faster and larger the longer you play</p>
+      <p>Every 10 seconds, two extra enemies spawn in</p>
+      <p>The game ends when you collide with an enemy</p>
+      <p>Press G to restart</p>
+    </div>
       <a href="projects.html" style="padding:10px 20px; background:#007BFF; color:#fff; text-decoration:none; border-radius:5px;display:block;margin-bottom: 20px; width:200px;text-align:center;">Go back</a>
        <script>
       let xPos = 300;
