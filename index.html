@@ -3,42 +3,15 @@
   <head>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.2/p5.js"></script>
   </head>
-<body>
+  <body>
+    <h1>My Site</h1>
+    <p>This is going to be just a place for me to upload some of my coding projects and study notes for now. I don't know what it'll become, but I have this domain and want to expand upon it, sort of like a blog, but not really.</p>
 
-<h1>My Site</h1>
-<p>This is going to be just a place for me to upload some of my coding projects and study notes for now. I don't know what it'll become, but I have this domain and want to expand upon it, sort of like a blog, but not really.</p>
-
-  
     <script>
       let resetTime = 0;
-      function setup() {
-  createCanvas(600, 600); // pick the bigger canvas
-  stroke(255);
-  textSize(25);
-  textAlign(CENTER);     
-
-        let rectSize = 50;
-
-        for (let i = 0; i < height; i += 50) {
-          for (let j = 0; j < width; j += 50) {
-            fill(255, 0, 255);
-            rect(j, i, rectSize, rectSize);
-
-            fill(0, 255, 0);
-            text((j / 50) + (i / 5) + 1, j + 25, i + 37.5);
-          }
-        }
-        
-  // init enemy stuff after the grid
-  initEnemies();
-        resetTime=millis();
-        
-      }
       let xPos = 300;
       let yPos = 300;
-
       let isUp = false, isDown = false, isLeft = false, isRight = false;
-
       let accel = 1;
       let xVel = 0;
       let yVel = 0;
@@ -49,11 +22,31 @@
 
       let gameover = false;
       let gameoverScreen = 255;
-      let resetTime = 0;
       let timeTracker = 0;
 
       let minEnemies = 2;
       let maxEnemies = 10;
+
+      function setup() {
+        createCanvas(600, 600);
+        stroke(255);
+        textSize(25);
+        textAlign(CENTER);
+
+        let rectSize = 50;
+        for (let i = 0; i < height; i += 50) {
+          for (let j = 0; j < width; j += 50) {
+            fill(255, 0, 255);
+            rect(j, i, rectSize, rectSize);
+
+            fill(0, 255, 0);
+            text((j / 50) + (i / 5) + 1, j + 25, i + 37.5);
+          }
+        }
+
+        initEnemies();
+        resetTime = millis();
+      }
 
       function draw() {
         if (!gameover) {
@@ -68,7 +61,6 @@
           gameTimer(resetTime);
         } else {
           background(gameoverScreen);
-
           fill(0);
           textSize(50);
           text("GAME OVER", 300, 200);
