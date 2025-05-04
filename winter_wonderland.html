@@ -268,6 +268,128 @@ function resetGame() {
   score = 0;
 }
 
+  function snowflake() {
+  snow=createShape();
+  snow.beginShape();
+
+  //up line
+  snow.vertex(0, 0);
+  snow.vertex(50, 0);
+
+  //up flakes 1
+  snow.vertex(50, 45);
+  snow.vertex(100, 0);
+  snow.vertex(125, 20);
+  snow.vertex(50, 95);
+
+  snow.vertex(50, 125);
+  snow.vertex(100, 80);
+  snow.vertex(125, 100);
+  snow.vertex(50, 175);
+
+  //right line 1
+  snow.vertex(50, 225);
+
+  //right flakes 1
+  snow.vertex(95, 225);
+  snow.vertex(135, 175);
+  snow.vertex(165, 195);
+  snow.vertex(145, 225);
+
+  snow.vertex(175, 225);
+  snow.vertex(215, 175);
+  snow.vertex(245, 195);
+  snow.vertex(225, 225);
+
+  //right line 2
+  snow.vertex(300, 225);
+  snow.vertex(300, 275);
+
+  //right flakes 2
+  snow.vertex(225, 275);
+  snow.vertex(245, 305);
+  snow.vertex(215, 325);
+  snow.vertex(175, 275);
+
+  snow.vertex(145, 275);
+  snow.vertex(165, 305);
+  snow.vertex(135, 325);
+  snow.vertex(95, 275);
+
+  //right line 3
+  snow.vertex(50, 275);
+
+  //down flakes 1
+  snow.vertex(50, 325);
+  snow.vertex(125, 420);
+  snow.vertex(100, 440);
+  snow.vertex(50, 375);
+
+  snow.vertex(50, 405);
+  snow.vertex(125, 500);
+  snow.vertex(100, 520);
+  snow.vertex(50, 455);
+
+  //down line
+  snow.vertex(50, 500);
+  snow.vertex(0, 500);
+
+  //down flakes 2
+  snow.vertex(0, 455);
+  snow.vertex(-50, 520);
+  snow.vertex(-75, 500);
+  snow.vertex(0, 405);
+
+  snow.vertex(0, 375);
+  snow.vertex(-50, 440);
+  snow.vertex(-75, 420);
+  snow.vertex(0, 325);
+
+  //left line
+  snow.vertex(0, 275);
+
+  //left flakes 1
+  snow.vertex(-145, 275);
+  snow.vertex(-165, 305);
+  snow.vertex(-135, 325);
+  snow.vertex(-95, 275);
+
+  snow.vertex(-225, 275);
+  snow.vertex(-245, 305);
+  snow.vertex(-215, 325);
+  snow.vertex(-175, 275);
+
+  //left line 1
+  snow.vertex(-250, 275);
+  snow.vertex(-250, 225);
+
+  //left flakes 2
+  snow.vertex(-175, 225);
+  snow.vertex(-215, 175);
+  snow.vertex(-245, 195);
+  snow.vertex(-225, 225);
+
+  snow.vertex(-95, 225);
+  snow.vertex(-135, 175);
+  snow.vertex(-165, 195);
+  snow.vertex(-145, 225);
+
+  //left line 2
+  snow.vertex(0, 225);
+
+  //up flakes 2
+  snow.vertex(0,175);
+  snow.vertex(-75,100);
+  snow.vertex(-50,80);
+  snow.vertex(0,125);
+  
+  snow.vertex(0,95);
+  snow.vertex(-75,20);
+  snow.vertex(-50,0);
+  snow.vertex(0,45);
+
+  snow.endShape(CLOSE);
+}
       </script>
     </body>
   </html>
