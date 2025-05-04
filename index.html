@@ -29,6 +29,198 @@
         }
       }
     </script>
+   <script>
+      let xPos = 300;
+      let yPos = 300;
+
+      let isUp = false, isDown = false, isLeft = false, isRight = false;
+
+      let accel = 1;
+      let xVel = 0;
+      let yVel = 0;
+      let friction = 0.93;
+
+      let enemyX = [], enemyY = [], enemySize = [], enemySpeed = [];
+      let arrayLength = 2;
+
+      let gameover = false;
+      let gameoverScreen = 255;
+      let resetTime = 0;
+      let timeTracker = 0;
+
+      let minEnemies = 2;
+      let maxEnemies = 10;
+
+      function setup() {
+        createCanvas(600, 600);
+        textAlign(CENTER);
+
+        for (let i = 0; i < maxEnemies; i++) {
+          enemyX[i] = -15;
+          enemyY[i] = -15;
+          enemySize[i] = 0;
+          enemySpeed[i] = 0;
+        }
+
+        for (let i = 0; i < minEnemies; i++) {
+          enemySize[i] = 50;
+          enemySpeed[i] = 5;
+          if (i % 2 === 0) {
+            enemyX[i] = 450;
+            enemyY[i] = 450;
+          } else {
+            enemyX[i] = 50;
+            enemyY[i] = 50;
+          }
+        }
+
+        resetTime = millis();
+      }
+
+      function draw() {
+        if (!gameover) {
+          background(103, 204, 204);
+          fill(20, 255, 20);
+          ellipse(xPos, yPos, 50, 50);
+
+          moveBall();
+          checkBounds();
+          moveEnemy();
+          collisionDetection();
+          gameTimer(resetTime);
+        } else {
+          background(gameoverScreen);
+
+          fill(0);
+          textSize(50);
+          text("GAME OVER", 300, 200);
+          textSize(25);
+          text("Press G to play again", 300, 400);
+        }
+      }
+
+      function keyPressed() {
+        setMove(keyCode, true);
+
+        if (gameover && key === 'g') {
+          for (let i = 0; i < maxEnemies; i++) {
+            enemyX[i] = -15;
+            enemyY[i] = -15;
+            enemySize[i] = 0;
+            enemySpeed[i] = 0;
+          }
+
+          for (let i = 0; i < minEnemies; i++) {
+            enemySize[i] = 50;
+            enemySpeed[i] = 5;
+            if (i % 2 === 0) {
+              enemyX[i] = 450;
+              enemyY[i] = 450;
+            } else {
+              enemyX[i] = 50;
+              enemyY[i] = 50;
+            }
+          }
+
+          resetTime = millis();
+          timeTracker = 0;
+          gameover = false;
+        }
+      }
+
+      function keyReleased() {
+        setMove(keyCode, false);
+      }
+
+      function setMove(k, b) {
+        if (k === UP_ARROW) isUp = b;
+        if (k === DOWN_ARROW) isDown = b;
+        if (k === LEFT_ARROW) isLeft = b;
+        if (k === RIGHT_ARROW) isRight = b;
+      }
+
+      function moveBall() {
+        xPos += xVel;
+        yPos += yVel;
+
+        if (isUp) yVel -= accel;
+        if (isDown) yVel += accel;
+        if (isLeft) xVel -= accel;
+        if (isRight) xVel += accel;
+
+        xVel *= friction;
+        yVel *= friction;
+
+        if (abs(xVel) < 0.3) xVel = 0;
+        if (abs(yVel) < 0.3) yVel = 0;
+      }
+
+      function checkBounds() {
+        if (xPos > width) xPos = 0;
+        if (xPos < 0) xPos = width;
+        if (yPos > height) yPos = 0;
+        if (yPos < 0) yPos = height;
+      }
+
+      function moveEnemy() {
+        timeTracker++;
+        if (timeTracker >= 600 && arrayLength < maxEnemies) {
+          arrayLength += 2;
+          for (let i = arrayLength - 2; i < arrayLength; i++) {
+            enemySize[i] = 50;
+            enemySpeed[i] = 5;
+            if (i % 2 === 0) {
+              enemyX[i] = 450;
+              enemyY[i] = 450;
+            } else {
+              enemyX[i] = 50;
+              enemyY[i] = 50;
+            }
+          }
+          timeTracker = 0;
+        }
+
+        for (let i = 0; i < arrayLength; i++) {
+          fill(255, 20, 20);
+          ellipse(enemyX[i], enemyY[i], enemySize[i], enemySize[i]);
+
+          if (i % 2 === 0) {
+            enemyX[i] += enemySpeed[i];
+          } else {
+            enemyY[i] += enemySpeed[i];
+          }
+
+          if (enemyX[i] > width) {
+            enemySpeed[i] *= 1.02;
+            enemySize[i] *= 1.02;
+            enemyX[i] = 0;
+            enemyY[i] = random(0, height);
+          }
+
+          if (enemyY[i] > height) {
+            enemySpeed[i] *= 1.02;
+            enemySize[i] *= 1.02;
+            enemyX[i] = random(0, width);
+            enemyY[i] = 0;
+          }
+        }
+      }
+
+      function collisionDetection() {
+        for (let i = 0; i < arrayLength; i++) {
+          if (dist(enemyX[i], enemyY[i], xPos, yPos) < 50) {
+            gameover = true;
+          }
+        }
+      }
+
+      function gameTimer(resetTime) {
+        let time = millis() - resetTime;
+        fill(0);
+        textSize(20);
+        text("Time: " + int(time / 1000), 50, 50);
+      }
+    </script>
   </body>
 </html>
 
