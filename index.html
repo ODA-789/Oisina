@@ -35,7 +35,7 @@
 
 
   </p>
-   <script>
+  <script>
       let xPos = 300;
       let yPos = 300;
 
@@ -44,7 +44,7 @@
       let accel = 1;
       let xVel = 0;
       let yVel = 0;
-      let friction = 0.97;
+      let friction = 0.93;
 
       let enemyX = [], enemyY = [], enemySize = [], enemySpeed = [];
       let arrayLength = 2;
@@ -60,26 +60,7 @@
       function setup() {
         createCanvas(600, 600);
         textAlign(CENTER);
-
-        for (let i = 0; i < maxEnemies; i++) {
-          enemyX[i] = -15;
-          enemyY[i] = -15;
-          enemySize[i] = 0;
-          enemySpeed[i] = 0;
-        }
-
-        for (let i = 0; i < minEnemies; i++) {
-          enemySize[i] = 50;
-          enemySpeed[i] = 5;
-          if (i % 2 === 0) {
-            enemyX[i] = 450;
-            enemyY[i] = 450;
-          } else {
-            enemyX[i] = 50;
-            enemyY[i] = 50;
-          }
-        }
-
+        initEnemies();
         resetTime = millis();
       }
 
@@ -109,28 +90,15 @@
         setMove(keyCode, true);
 
         if (gameover && key === 'g') {
-          for (let i = 0; i < maxEnemies; i++) {
-            enemyX[i] = -15;
-            enemyY[i] = -15;
-            enemySize[i] = 0;
-            enemySpeed[i] = 0;
-          }
-
-          for (let i = 0; i < minEnemies; i++) {
-            enemySize[i] = 50;
-            enemySpeed[i] = 5;
-            if (i % 2 === 0) {
-              enemyX[i] = 450;
-              enemyY[i] = 450;
-            } else {
-              enemyX[i] = 50;
-              enemyY[i] = 50;
-            }
-          }
-
+          initEnemies();
           resetTime = millis();
           timeTracker = 0;
+          arrayLength = minEnemies;
           gameover = false;
+          xPos = 300;
+          yPos = 300;
+          xVel = 0;
+          yVel = 0;
         }
       }
 
@@ -225,6 +193,27 @@
         fill(0);
         textSize(20);
         text("Time: " + int(time / 1000), 50, 50);
+      }
+
+      function initEnemies() {
+        for (let i = 0; i < maxEnemies; i++) {
+          enemyX[i] = -15;
+          enemyY[i] = -15;
+          enemySize[i] = 0;
+          enemySpeed[i] = 0;
+        }
+
+        for (let i = 0; i < minEnemies; i++) {
+          enemySize[i] = 50;
+          enemySpeed[i] = 5;
+          if (i % 2 === 0) {
+            enemyX[i] = 450;
+            enemyY[i] = 450;
+          } else {
+            enemyX[i] = 50;
+            enemyY[i] = 50;
+          }
+        }
       }
     </script>
   </body>
