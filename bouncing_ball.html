@@ -1,0 +1,171 @@
+<DOCTYPE html>
+  <html>
+    <head>
+      <title>Bouncing Ball</title>
+      <h1>Bouncing Ball</h1>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.2/p5.js"></script>
+    </head>
+    <body>
+       <a href="projects.html" style="padding:10px 20px; background:#007BFF; color:#fff; text-decoration:none; border-radius:5px;display:block;margin-bottom: 20px; width:200px;text-align:center;">Go back</a>
+      <script>
+        let ballX = 400;
+let ballY = 400;
+
+let ballSpeed = 3;
+let ballVX;
+let ballVY;
+
+let angle;
+
+let dx;
+let dy;
+
+let factor;
+
+let strokeR = 255;
+let strokeG = 0;
+let strokeB = 0;
+
+let R255 = true;
+let G255 = false;
+let B255 = false;
+
+let R0 = false;
+let G0 = true;
+let B0 = true;
+
+let RUP;
+let GUP;
+let BUP;
+
+let RDOWN;
+let GDOWN;
+let BDOWN;
+
+let startBall = true;
+
+function setup() {
+  createCanvas(800, 800);
+  background(0);
+  ellipse(400, 400, 750, 750);
+
+  angle = random(TWO_PI);
+  ballVX = cos(angle) * ballSpeed;
+  ballVY = sin(angle) * ballSpeed;
+}
+
+function draw() {
+  fill(0);
+  strokeWeight(5);
+  stroke(strokeR, strokeG, strokeB);
+
+  // part one
+  if (R255 === true && G0 === true && B0 === true) {
+    BUP = true;
+  }
+
+  if (BUP === true) {
+    strokeB = strokeB + 1;
+  }
+
+  if (strokeB === 255) {
+    BUP = false;
+    B0 = false;
+    B255 = true;
+  }
+
+  // part two
+  if (R255 === true && G0 === true && B255 === true) {
+    RDOWN = true;
+  }
+
+  if (RDOWN === true) {
+    strokeR = strokeR - 1;
+  }
+
+  if (strokeR === 0) {
+    RDOWN = false;
+    R255 = false;
+    R0 = true;
+  }
+
+  // part three
+  if (R0 === true && G0 === true && B255 === true) {
+    GUP = true;
+  }
+
+  if (GUP === true) {
+    strokeG = strokeG + 1;
+  }
+
+  if (strokeG === 255) {
+    GUP = false;
+    G0 = false;
+    G255 = true;
+  }
+
+  // part four
+  if (R0 === true && G255 === true && B255 === true) {
+    BDOWN = true;
+  }
+
+  if (BDOWN === true) {
+    strokeB = strokeB - 1;
+  }
+
+  if (strokeB === 0) {
+    BDOWN = false;
+    B255 = false;
+    B0 = true;
+  }
+
+  // part five
+  if (R0 === true && G255 === true && B0 === true) {
+    RUP = true;
+  }
+
+  if (RUP === true) {
+    strokeR = strokeR + 1;
+  }
+
+  if (strokeR === 255) {
+    RUP = false;
+    R0 = false;
+    R255 = true;
+  }
+
+  // part six
+  if (R255 === true && G255 === true && B0 === true) {
+    GDOWN = true;
+  }
+
+  if (GDOWN === true) {
+    strokeG = strokeG - 1;
+  }
+
+  if (strokeG === 0) {
+    GDOWN = false;
+    G255 = false;
+    G0 = true;
+  }
+
+  ballX = ballX + ballVX;
+  ballY = ballY + ballVY;
+
+  if (dist(ballX, ballY, 400, 400) >= 323) {
+    angle = random(TWO_PI);
+    ballVX = cos(angle) * ballSpeed;
+    ballVY = sin(angle) * ballSpeed;
+
+    dx = ballX - 400;
+    dy = ballY - 400;
+    factor = 323 / dist(ballX, ballY, 400, 400);
+    ballX = 400 + dx * factor;
+    ballY = 400 + dy * factor;
+  }
+
+  ellipse(ballX, ballY, 100, 100);
+}
+      </script>
+    </body>
+  </html>
