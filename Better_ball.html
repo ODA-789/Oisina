@@ -1,0 +1,118 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <title>Better Ball</title>
+    <h1>Bouncing Ball</h1>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.2/p5.js"></script>
+  </head>
+
+  <body>
+    <a href="projects.html" style="padding:10px 20px; background:#007BFF; color:#fff; text-decoration:none; border-radius:5px;display:block;margin-bottom: 20px; width:200px;text-align:center;">Go back</a>
+      <script>
+        class ArrayList extends Array {
+    constructor() {
+        super(...[]);
+    }
+    size() {
+        return this.length;
+    }
+    add(x) {
+        this.push(x);
+    }
+    get(i) {
+        return this[i];
+    }
+    remove(i) {
+        this.splice(i, 1);
+    }
+}
+
+let myBallList;
+function setup() {
+    createCanvas(800, 600);
+    myBallList = new ArrayList();
+    myBallList.add(new Ball(100, 200));
+}
+function draw() {
+    background(0);
+    for (let i = 0; i < myBallList.size(); i++) {
+        myBallList.get(i).run();
+    }
+    for (let i = 0; i < myBallList.size(); i++) {
+        if (myBallList.get(i).yPos >= height - 1) {
+            myBallList.remove(i);
+        }
+    }
+    for (let i = 0; i < myBallList.size(); i++) {
+        for (let j = 0; j < myBallList.size(); j++) {
+            if (
+                dist(
+                    myBallList.get(i).xPos,
+                    myBallList.get(i).yPos,
+                    myBallList.get(j).xPos,
+                    myBallList.get(j).yPos
+                ) < 20 &&
+                dist(
+                    myBallList.get(i).xPos,
+                    myBallList.get(i).yPos,
+                    myBallList.get(j).xPos,
+                    myBallList.get(j).yPos
+                ) > 1
+            ) {
+                console.log("hit");
+                console.log(myBallList.get(i).xSpeed);
+                myBallList.get(i).xSpeed = myBallList.get(i).xSpeed * -1;
+                myBallList.get(i).ySpeed = myBallList.get(i).ySpeed * -1;
+                myBallList.get(j).xSpeed = myBallList.get(j).xSpeed * -1;
+                myBallList.get(j).ySpeed = myBallList.get(j).ySpeed * -1;
+                console.log(myBallList.get(i).xSpeed);
+            }
+        }
+    }
+}
+function mouseReleased() {
+    myBallList.add(new Ball(mouseX, mouseY));
+}
+class Ball {
+    xPos;
+    yPos;
+    xSpeed;
+    ySpeed;
+    constructor(x, y) {
+        this.xPos = x;
+        this.yPos = y;
+        this.xSpeed = 5;
+        this.ySpeed = 5;
+    }
+    display() {
+        fill(255);
+        ellipse(this.xPos, this.yPos, 20, 20);
+    }
+    move() {
+        if (this.yPos <= height) {
+            this.xPos = this.xPos + this.xSpeed;
+        }
+        this.yPos = this.yPos + this.ySpeed;
+    }
+    bounce() {
+        if (this.xPos + 10 >= width || this.xPos - 10 <= 0) {
+            this.xSpeed = this.xSpeed * -1;
+        }
+        if (this.yPos + 10 > height || this.yPos - 10 <= 0) {
+            this.ySpeed = this.ySpeed * -1;
+        }
+    }
+    gravity() {
+        this.ySpeed = this.ySpeed + 0.2;
+    }
+    run() {
+        this.display();
+        this.move();
+        this.bounce();
+        this.gravity();
+    }
+}
+
+      </script>
+  </body>
+</html>
